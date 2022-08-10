@@ -1,4 +1,4 @@
-# Metropolis algorithm for finding maximum likelihood estimation
+# Metropolis algorithm for reconstructing EAS parameters
 **Required gcc 6+** <br/>
 **Start program** - ./main input_data config <br/>
 **Description of data format** <br/>
