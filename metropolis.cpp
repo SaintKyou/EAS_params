@@ -30,7 +30,7 @@ void Metropolis::start_init(){      // Some zero initialization
         for(int i = 0; i < Num_det; ++i){
             Sum_x += x[i]*x_det[i];
             Sum_y += x[i]*y_det[i];
-            Q_all += x[i];              // x - n
+            Q_all += x[i];              // x - n (in MIP)
         }
         par.push_back(Sum_x/Q_all);
         par.push_back(Sum_y/Q_all);
@@ -41,11 +41,6 @@ void Metropolis::start_init(){      // Some zero initialization
             Sum_x+=S*nkg(i);
         Ne_0 = Q_all/Sum_x;
         par.push_back(Ne_0);
-
-        eps.push_back(10);
-        eps.push_back(10);
-        eps.push_back(0.1);
-        eps.push_back(1000);
 }
 
 double Metropolis::ne_calc(){
@@ -57,9 +52,7 @@ double Metropolis::ne_calc(){
 }
 
 double Metropolis::calc_del_r(){
-    double loss{};
-    loss = std::sqrt(std::pow(par[0] - y[0],2)+std::pow(par[1] - y[1],2));
-    return loss;
+    return std::sqrt(std::pow(par[0] - y[0],2)+std::pow(par[1] - y[1],2));
 }
 
 void Metropolis::find_min(int N){
@@ -96,7 +89,7 @@ void Metropolis::arr_dir(){
     int* tim = &t[0];
     Matrix M(3,3), Omega(3,1), X(3,1);
 
-    // Нормировочка
+    // Normalization
     for (int i = 0; i < Num_det; ++i) {
         if(tim[i]!=-1) {
             min = tim[i];
@@ -110,7 +103,7 @@ void Metropolis::arr_dir(){
         if(tim[i]!=-1) tim[i]-=min;
     }
 
-    //Устранение выбросов
+    // delete outliers
     for (int j = 0; j < Num_det; ++j ) {
         if(tim[j] > 1000) tim[j] = -1;
         if(tim[j]>=0) count+=1;

@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-c 
 
-LDFLAGS= -lpthread -fcommon -std=c++14
+LDFLAGS= -lpthread -pthread -fcommon -std=c++11
 SOURCES=main.cpp metropolis.cpp matrix.cpp functions.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=main

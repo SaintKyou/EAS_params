@@ -1,12 +1,12 @@
 #include"functions.h"
 
-double MX(std::vector<double> &f){                       // выборочное среднее
+double MX(std::vector<double> &f){                       // Expectation value
     double Summ{};
     for (int i = 0;i < f.size(); ++i) Summ+=f[i];
     return Summ/f.size();
 }
 
-double DX(std::vector<double> &f){               // дисперсия
+double DX(std::vector<double> &f){               // Dispersion
     double Summ{},Summ2{};
     for (int i = 0;i < f.size(); ++i){
         Summ += f[i];

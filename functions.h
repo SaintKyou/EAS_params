@@ -6,9 +6,9 @@
 #include <numeric>
 #include <fstream>
 
-double MX(std::vector<double> &f);   //выборочное среднее
+double MX(std::vector<double> &f);   
 
-double DX(std::vector<double> &f);     //выборочная дисперсия
+double DX(std::vector<double> &f);     
 
 std::vector<double> fun_dence(std::vector<double> &f);
 

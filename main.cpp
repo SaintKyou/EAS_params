@@ -17,13 +17,14 @@ std::vector<std::thread> thread_pool;
 
 std::mutex mtx;
 std::ofstream out("pred.txt");
+std::string s;
 
 void loop3(int j, std::vector<double> &xx, std::vector<double> &yy, std::vector<int> &xx_t ,std::vector<double> &yy_t)
 {
     while (j < xx.size()/Num_det){
     std::vector<double> x1(&xx[Num_det*j], &xx[Num_det*(j+1)]), y1(&yy[2*j], &yy[2*(j+1)]), yt1(&yy_t[2*j], &yy_t[2*(j+1)]);
     std::vector<int> xt1(&xx_t[Num_det*j], &xx_t[Num_det*(j+1)]);
-    Metropolis M(x1, y1, xt1 ,yt1);
+    Metropolis M(x1, y1, xt1 ,yt1, s);
     M.arr_dir();
     M.start_init();
     M.find_min(10000);
@@ -39,9 +40,15 @@ void loop3(int j, std::vector<double> &xx, std::vector<double> &yy, std::vector<
     }
 }
 
-int main()
+int main(int argc, char **argv)
 {
-    std::fstream f1("X1.txt");
+    if(argc != 3){
+    std::cout << "Please choose config and data file" << '\n';
+    return 0;
+    }
+    std::fstream f1(std::string(argv[1]).c_str());
+    s = std::string(argv[2]);
+
     std::vector<double> xx, yy, yy_t;
     std::vector<int> xx_t;
     std::string line;
@@ -76,7 +83,7 @@ int main()
         entry.join();
     }
 
-    std::cout << del_R.size() << '\n';
+    std::cout << "Events in border" << del_R.size() << '\n';
     std::cout << "Distance error: " << '\n';
     std::cout << "Mean "  << MX(del_R) << ' ' << " Mean Square Deviation " << std::sqrt(DX(del_R)) << '\n';
     std::cout << "0.72 quantile: " << quantile(del_R, 0.72) << '\n';
