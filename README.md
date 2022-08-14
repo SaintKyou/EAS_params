@@ -1,10 +1,11 @@
 # Metropolis algorithm for reconstructing EAS parameters
-**Required gcc 6+** <br/>
+> **Required gcc 6+** <br/>
 **Start program** - ./main input_data config <br/>
-**Description of data format** <br/>
+**Description of data format:** <br/>
 **Input data** - no. of particles in mip in each det. [0:no.of det.] + trigger time of det.[no. of det:2*no. of det.] + X, Y, $\theta, \phi$ (from model) <br/>
 **Number of particles, times - int** <br/>
 **Parameters - float** <br/>
+
 Algorithm based on creation of a Markov chain (a sequence of random events with a finite or countable number of outcomes,
 characterized by the fact that the next element of the sequence depends only on the previous one). 
 After finding the initial approximation of the parameters, we will directly apply the Monte Carlo method. The essence of the method is as follows:
